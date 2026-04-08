@@ -1,0 +1,5 @@
+[console_scripts]
+server = mindweave_env.server.app:main
+
+[openenv.envs]
+mindweave_v1 = mindweave_env.server.environment2:MindweaveEnvironment

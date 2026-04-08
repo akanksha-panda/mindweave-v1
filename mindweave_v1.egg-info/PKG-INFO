@@ -1,0 +1,259 @@
+Metadata-Version: 2.4
+Name: mindweave-v1
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.135.3
+Requires-Dist: matplotlib>=3.10.8
+Requires-Dist: openai>=2.30.0
+Requires-Dist: openenv>=0.1.13
+Requires-Dist: openenv-core>=0.2.3
+Requires-Dist: python-dotenv>=1.2.2
+Requires-Dist: sentence-transformers>=5.3.0
+Requires-Dist: torch>=2.11.0
+Requires-Dist: uvicorn>=0.44.0
+
+🧠 MindWeave: RL-Powered Mental Health Agent System
+
+🚀 Overview
+
+MindWeave is an AI-driven mental health support environment built using a state-aware multi-agent system with reinforcement learning principles.
+
+It processes user input through a structured Tasks:
+
+Emotion Classification
+Intent Detection
+Agent Selection
+
+based on following States:
+mood  
+energy  
+distortion
+sentiment
+
+Each step updates an internal state and produces a reward, enabling intelligent and adaptive responses.
+
+============================================================
+
+🧩 Key Features
+🧠 Environment-driven reasoning (state-based decisions)
+🎯 Multi-step task pipeline (3 tasks per input)
+🔁 9-step evaluation episodes (3 inputs × 3 tasks)
+🤖 Agent system (Emotional, Cognitive, Behavioral, Adaptive)
+⚡ Clean OpenEnv-compatible inference output
+💬 Optional real-time chat UI
+🧠 Optional local LLM support via Ollama
+High Performance- Achieves a 0.97 average therapeutic score, outperforming/matching standard high-parameter LLM baselines.
+
+=======================================================
+
+⚙️ System Flow
+
+The system follows a classical Reinforcement Learning feedback loop:Observation:
+
+User input is encoded into a high-dimensional state vector.
+
+Policy (PPO): The "Brain" selects the optimal agent category.
+
+Action: The selected specialized agent (e.g., Behavioral) generates a targeted response.
+
+Reward: The response is graded on a scale of $0.0 - 1.0$ based on therapeutic efficacy.
+
+User Input
+↓
+Environment State Update
+↓
+[ Emotion → Intent → Agent ]
+↓
+Policy Decision (Env-driven)
+↓
+LLM (Echo only, no reasoning)
+↓
+Environment Step + Reward
+
+🧪 Example Inference Output
+[START]
+[STEP] step=1 ...
+[STEP] step=2 ...
+...
+[STEP] step=9 ...
+[END]
+
+========================================================
+
+🛠️ Setup & Installation
+Prerequisites:
+
+Python 3.10.11
+openenv
+UV (Fast Python package manager)
+Ollama (For local LLM support)
+
+Installation:
+
+python --version
+git --version
+pip install huggingface_hub --version
+huggingface-cli login
+pip install openenv-core
+openenv init my_env
+docker --version
+
+# Create and activate virtual environment
+
+uv venv
+
+# Windows:
+
+.venv\Scripts\activate
+
+# Linux/Mac:
+
+source .venv/bin/activate
+
+# Install dependencies
+
+uv pip install -r requirements.txt
+
+Local Model Setup:
+If you wish to use the local inference engine:
+ollama pull phi3
+
+===================================================
+
+🧪 Running Evaluations
+
+1. Run the RL Inference
+   To run the evaluation script and generate the OpenEnv-compliant logs.Runs the RL inference and produces standardized [START], [STEP], [END] output:
+
+python -m uv run python inference.py
+
+2. Compare Results
+   To see a side-by-side comparison between the RL Agent and the Baseline LLM:
+
+python -m uv run python -m mindweave_env.server.evaluation.compare_outputs
+
+💻 Live Demo & UI
+MindWeave includes a FastAPI backend and a modern web interface.
+
+1. Start the Backend Server:
+
+python -m uv run uvicorn mindweave_env.server.app:app --reload --reload-exclude .venv
+
+# or
+
+# If using UV (Global)
+
+python -m uv run uvicorn mindweave_env.server.app:app --reload
+
+# or
+
+# If inside activated venv
+
+uvicorn mindweave_env.server.app:app --reload
+
+2. Start the UI Controller:
+
+python -m uv run uvicorn mindweave_env.server.main_ui:app --reload --reload-exclude .venv --reload-exclude **pycache** --reload-exclude .git
+
+# or
+
+# If using UV (Global)
+
+python -m uv run uvicorn mindweave_env.server.main_ui:app --port 8001 --reload
+
+# or
+
+# If inside activated venv
+
+uvicorn mindweave_env.server.main_ui:app --port 8001 --reload
+
+3. Launch the Frontend:
+   Open :
+   mindweave_env/index.html
+   in your browser or run via Live Server at:
+   http://127.0.0.1:5500/mindweave_env/index.html
+
+   "Note: Use uvicorn commands from the root directory (MindWeave_v1) to ensure all module paths are resolved correctly."
+
+===============================================
+
+📊 Evaluation Results
+Our evaluation shows that the MindWeave RL policy successfully identifies the "Micro-Action" required for low-energy states and the "Reframing" needed for cognitive confusion.
+
+=== MINDWEAVE VS BASELINE EVALUATION REPORT ===
+
+============================================================
+🔹 Case 1
+🧑 User: I feel like a failure
+
+🤖 Baseline Response: Sweetheart, I'm so sorry to hear that you're feeling like a failure. That can be such a tough and isolating experience.
+
+First of all, let's just acknowledge that it's okay to have feelings like this sometimes. It doesn't mean you are actually a failure - it means you're human, and humans have ups and downs!
+
+Can I ask what's been going on that's making you feel this way? Is there something specific that's happened, or is it more of a general feeling?
+
+Remember, as your AI friend, everything we talk about is completely confidential and judgment-free. You can share as much or as little as you like.
+
+Also, just wanted to remind you that everyone has their own struggles and setbacks - even the people who seem to have it all together! It's how we respond to those challenges that really matters.
+
+So, what do you say? Would you like to talk about what's going on, or maybe we can brainstorm some ways to help you feel more confident and capable again?
+📊 Baseline Score: 0.90
+
+🧠 MindWeave Response: It sounds like you're going through quite an intense time right now and I want to assure you that having difficult moments doesn’t mean failure; they simply show us where we are in our journey, which is perfectly okay. If it feels helpful for you at this moment, perhaps a short walk or some light stretching might help clear your mind? Remember, taking care of yourself isn't optional—it's essential and I believe in your strength to get through tough times like these. How are you feeling after our conversation today?
+🤖 MindWeave Agent: emotional
+📊 MindWeave Score: 1.00
+
+===========================================================
+🔹 Case 2
+🧑 User: I have no energy
+
+🤖 Baseline Response: I'm so sorry to hear that you're feeling drained of energy! It can be really tough to muster up the motivation when we're running on empty.
+
+Can you tell me more about what's going on? Has anything specific been weighing on your mind lately, or has it just been a general feeling?
+
+In the meantime, I'd like to offer some suggestions that might help boost your energy levels:
+
+1. **Take a break**: Sometimes, our minds and bodies need a little rest. Are you taking time for self-care today? Maybe we can even set aside 10-15 minutes for a quick relaxation exercise?
+2. **Hydrate**: Dehydration can sneak up on us and make us feel sluggish. Have you had enough water or other fluids today?
+3. **Get moving (even if it's just a little)**: Even a short walk outside, some light stretching, or a few jumping jacks can help get those endorphins going! Would you be up for a quick physical activity together?
+
+What do you think? Is there anything else you'd like to chat about or try to help you feel more energized?
+
+Remember, I'm here to listen and offer support.
+📊 Baseline Score: 1.00
+
+🧠 MindWeave Response: I can sense that you're going through an especially low point right now where everything feels heavier than usual and energy is hard to come by—it really sounds like a tough day for you. Sometimes, our bodies react with physical tiredness when we’re trying to cope emotionally or mentally. What if taking even the smallest step could help? Maybe just sipping on some water might be enough to make things feel a bit lighter at this moment and give your body something gentle to focus on besides everything else that's going on inside you.
+🤖 MindWeave Agent: behavioral
+📊 MindWeave Score: 1.00
+
+============================================================
+🔹 Case 3
+🧑 User: Nothing makes sense anymore
+
+🤖 Baseline Response: I'm so sorry to hear that things feel like they're not making sense right now. It can be really overwhelming and frustrating when it feels like everything is unclear or confusing.
+
+Can you tell me more about what's going on? What specific things are feeling unclear or confusing for you? Sometimes talking through what's bothering you can help clarify things and give us a better idea of where to start looking for solutions.
+
+Also, I want you to know that I'm here to listen without judgment. Whatever is on your mind, it's safe to share with me. And even if we don't have all the answers right now, we can work through this together, one step at a time.
+
+Remember, things may seem unclear or confusing right now, but that doesn't mean they'll always be that way. Sometimes taking a step back, getting some perspective, and breaking things down into smaller, more manageable pieces can help make sense of things again.
+
+Let's take it one step at a time, okay? What's the first thing you'd like to talk about or work through together?
+📊 Baseline Score: 1.00
+
+🧠 MindWeave Response: "I'm here alongside you during these times of confusion and feeling like things don’t make sense. It sounds incredibly challenging when everything seems to be in a blurry haze for us, doesn't it? While I believe that finding clarity can often help ease this sensation over time, how do you feel about gently exploring some grounding techniques or perhaps writing down your thoughts and feelings as an exercise of self-reflection?"
+🤖 MindWeave Agent: cognitive
+📊 MindWeave Score: 0.90
+
+Check mindweave_env/server/evaluation/results/performance_chart.png
+for the detailed performance graph.
+
+====================================================
+
+Developed for the Meta PyTorch OpenEnv Hackathon
+
+👩‍💻 Author
+
+Akanksha Panda

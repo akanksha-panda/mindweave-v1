@@ -1,0 +1,2 @@
+[console_scripts]
+server = mindweave_env.server.app:main
