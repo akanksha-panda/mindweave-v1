@@ -11,7 +11,7 @@ LOG_FILE = "logs/trajectories_v3.jsonl"
 os.makedirs("logs", exist_ok=True)
 
 # =========================
-# 🔹 SMART STATE GENERATION
+# . SMART STATE GENERATION
 # =========================
 def generate_state():
     # 1. Pick a random word or phrase from your massive list
@@ -50,7 +50,7 @@ def clip(val, low, high):
     return max(low, min(high, val))
 
 # =========================
-# 🔹 REFINED ACTION POLICY
+# . REFINED ACTION POLICY
 # =========================
 def choose_action(state):
     cat = state["category"]
@@ -74,7 +74,7 @@ def choose_action(state):
     return {"type": "cognitive", "intensity": 1}
 
 # =========================
-# 🔹 ENV STEP SIMULATION
+# . ENV STEP SIMULATION
 # =========================
 def simulate_step(state, action):
     new_state = state.copy()
@@ -96,7 +96,7 @@ def simulate_step(state, action):
     return new_state
 
 # =========================
-# 🔹 REWARD FUNCTION
+# . REWARD FUNCTION
 # =========================
 def compute_reward(state, action, new_state):
     reward = 0.0
@@ -117,7 +117,7 @@ def compute_reward(state, action, new_state):
     return round(reward, 2)
 
 # =========================
-# 🔥 GENERATE DATASET
+# . GENERATE DATASET
 # =========================
 def generate_dataset(n=2000):
     with open(LOG_FILE, "a", encoding="utf-8") as f:
@@ -135,7 +135,7 @@ def generate_dataset(n=2000):
             }
             f.write(json.dumps(log_entry) + "\n")
 
-    print(f"✅ Generated {n} interactions using ALL_EMOTIONS and CATEGORY_STATE_HINTS")
+    print(f".Generated {n} interactions using ALL_EMOTIONS and CATEGORY_STATE_HINTS")
 
 if __name__ == "__main__":
     generate_dataset(2000)

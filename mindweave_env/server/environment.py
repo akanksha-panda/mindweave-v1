@@ -9,7 +9,7 @@ QUESTION_WORDS = ["how", "why", "what", "where", "which", "when"]
 
 
 # =========================
-# 🔥 INTENT DETECTION
+# . INTENT DETECTION
 # =========================
 def detect_intent(text):
     text = text.lower().strip()
@@ -24,7 +24,7 @@ def detect_intent(text):
 
 
 # =========================
-# 🔥 EMOTION FEATURES
+# . EMOTION FEATURES
 # =========================
 def build_emotion_features(user_input):
     
@@ -76,7 +76,7 @@ def build_emotion_features(user_input):
 
 
 # =========================
-# 🧠 ENVIRONMENT
+# . ENVIRONMENT
 # =========================
 class MentalHealthEnv:
     
@@ -98,7 +98,7 @@ class MentalHealthEnv:
         self.state = self._base_state()
         self.history = []
 
-        # 🔥 BASELINE (Crucial for Trajectory Rewards)
+        # . BASELINE (Crucial for Trajectory Rewards)
         self.baseline = {
             "mood": self.state["mood"],
             "distortion": self.state["distortion"],
@@ -120,7 +120,7 @@ class MentalHealthEnv:
         if self.state is None:
             self.state = self._base_state()
 
-        # 🔥 DEFINE TEXT HERE TO FIX THE ERROR
+        # . DEFINE TEXT HERE TO FIX THE ERROR
         text = user_input.lower().strip()
 
         self.history.append(f"user: {text}")
@@ -131,7 +131,7 @@ class MentalHealthEnv:
         emotion_features = build_emotion_features(user_input)
         self.state.update(emotion_features)
         
-        # 2. 🔥 EXPLICIT ENERGY & MOOD LOGIC
+        # 2. . EXPLICIT ENERGY & MOOD LOGIC
         # Adding 'no energy' and 'exhausted' keywords specifically
         low_energy_words = ["no energy", "exhausted", "tired", "can't get up", "fatigue", "drained", "low energy"]
         

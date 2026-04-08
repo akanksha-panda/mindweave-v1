@@ -27,7 +27,7 @@ async def run():
 
     for user_input in user_inputs:
         print(f"Processing: {user_input}")
-        # 🔥 LLM baseline
+        # . LLM baseline
         for _ in range(3):  # retry 3 times
             try:
                 action = await get_baseline_action(user_input)
@@ -35,10 +35,10 @@ async def run():
             except Exception as e:
                 print("Retrying baseline...", e)
 
-        # 🔥 LLM grading (real evaluation)
+        # . LLM grading (real evaluation)
         score = await grade_with_llm(user_input, action["text"])
 
-        # 🔥 step env
+        # . step env
         state, _, _ = env.step(action)
 
         rewards.append(score)
@@ -51,7 +51,7 @@ async def run():
 
     print("Baseline Scores:", rewards)
 
-   # 🔥 SAVE DATA
+   # . SAVE DATA
     output_dir = os.path.join(BASE_DIR, "results")
     os.makedirs(output_dir, exist_ok=True)
     

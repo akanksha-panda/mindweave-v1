@@ -29,11 +29,11 @@ class MindweaveEnv(EnvClient[MindweaveAction, MindweaveObservation, State]):
     def _parse_result(self, payload: Dict[str, Any]) -> StepResult[MindweaveObservation]:
         obs_data = payload.get("observation", {}) or {}
 
-        # 🔥 ALWAYS PRESERVE FULL STATE
+        # . ALWAYS PRESERVE FULL STATE
         raw_state = obs_data.get("state", {}) or {}
         state = dict(raw_state)  # deep copy not needed (JSON-safe)
 
-        # 🔥 SAFE DEFAULTS (non-destructive)
+        # . SAFE DEFAULTS (non-destructive)
         defaults = {
             "mood": 5,
             "distortion": 5,

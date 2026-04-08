@@ -13,14 +13,14 @@ from mindweave_env.server.rl.ppo_trainer import PPOTrainer
 from mindweave_env.server.emotions.emotion_data import ALL_EMOTIONS
 
 # =========================
-# 🔹 PRE-TRAINING (IMITATION)
+# . PRE-TRAINING (IMITATION)
 # =========================
 def pretrain_from_logs(model, trainer, log_path, epochs=30): # Increased epochs for better cloning
     if not os.path.exists(log_path):
-        print(f"⚠️ Log file {log_path} not found. Skipping imitation phase.")
+        print(f". Log file {log_path} not found. Skipping imitation phase.")
         return
 
-    print(f"📦 Phase 1: Imitation Learning from {log_path}...")
+    print(f". Phase 1: Imitation Learning from {log_path}...")
     
     states_data = []
     actions_data = []
@@ -50,10 +50,10 @@ def pretrain_from_logs(model, trainer, log_path, epochs=30): # Increased epochs 
         if epoch % 5 == 0:
             print(f"   Epoch {epoch:2} | Imitation Loss: {loss.item():.4f}")
 
-    print("✅ Phase 1 Complete. Model has 'cloned' the expert rules.")
+    print(".Phase 1 Complete. Model has 'cloned' the expert rules.")
 
 # =========================
-# 🔹 LIVE RL TRAINING
+# . LIVE RL TRAINING
 # =========================
 def train():
     env = MentalHealthEnv()
@@ -71,13 +71,13 @@ def train():
     ACTION_MAP = {0: "behavioral", 1: "cognitive", 2: "emotional"}
     reward_history = []
 
-    print("\n🚀 Phase 2: Live PPO Reinforcement Learning...")
+    print("\n. Phase 2: Live PPO Reinforcement Learning...")
 
     # ... inside your train() function ...
-    print("\n🚀 Phase 2: Live PPO Reinforcement Learning with Curriculum...")
+    print("\n. Phase 2: Live PPO Reinforcement Learning with Curriculum...")
 
     for episode in range(1001):
-        # 🔥 CURRICULUM LOGIC: Force specific scenarios to teach the model
+        # . CURRICULUM LOGIC: Force specific scenarios to teach the model
         if episode % 3 == 0:
             start_phrase = "Why does this always happen to me?" # Force Question (Cognitive)
         elif episode % 3 == 1:
@@ -128,7 +128,7 @@ def train():
             print(f"Epi {episode:4} | Start: {start_phrase[:15]:15} | Avg Reward: {avg_reward:6.2f} | PPO Loss: {loss:.4f}")
             torch.save(model.state_dict(), "models/ppo_mental_health.pt")
 
-    print("✅ All Training Phases Complete.")
+    print(".All Training Phases Complete.")
     torch.save(model.state_dict(), "models/ppo_mental_health_final.pt")
 
 if __name__ == "__main__":

@@ -22,7 +22,7 @@ class PPOPolicy(nn.Module):
     
 
     def forward(self, x):
-        # 🔥 ADD THIS GUARD CLAUDE
+        # . ADD THIS GUARD CLAUDE
         if isinstance(x, dict):
             # Use your encoder to turn the dictionary into a 388-dim list
             from mindweave_env.server.rl.state_encoder import encode_state

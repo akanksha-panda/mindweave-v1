@@ -23,7 +23,7 @@ def route(state, user_input, model=None):
     distortion = state.get("distortion", 0)
 
     # ==========================================
-    # 1. 🛑 HARD RULES & SPECIAL INTENTS
+    # 1. . HARD RULES & SPECIAL INTENTS
     # ==========================================
     if energy == 0:
             return behavioral_agent(state, user_input) 
@@ -36,7 +36,7 @@ def route(state, user_input, model=None):
     if any(p in text for p in PHILOSOPHICAL_PATTERNS):
         return adaptive_agent(state, user_input, mode="philosophical")
 
-    # --- 🔥 EMOTIONAL SUPPORT OVERRIDE ---
+    # --- . EMOTIONAL SUPPORT OVERRIDE ---
     # Forces empathy if the user explicitly asks for support or intent is detected as emotional
     if intent == "emotional" or "support" in text:
         if model is not None:
@@ -51,7 +51,7 @@ def route(state, user_input, model=None):
         return emotional_agent(state, user_input)
 
     # ==========================================
-    # 2. 🧠 RL AGENT (PPO) - PRIMARY DECISION MAKER
+    # 2. . RL AGENT (PPO) - PRIMARY DECISION MAKER
     # ==========================================
     if model is not None:
         try:
@@ -59,14 +59,14 @@ def route(state, user_input, model=None):
             is_emotional = emotion in ["sadness", "anxiety", "fear", "pain", "vulnerable"]
             is_distorted = distortion >= 5
             
-            # 🛡️ CHIT-CHAT GATE: Bypass RL for purely neutral statements
+            # . CHIT-CHAT GATE: Bypass RL for purely neutral statements
             if not is_emotional and not is_distorted and sentiment > -0.1:
                 return adaptive_agent(state, user_input)
 
             # Get RL Action from PPO Policy
             action_id, *_ = model.get_action(state)
             
-            # --- 🔥 INTELLIGENT CORRECTIONS (The "Safety Net") ---
+            # --- . INTELLIGENT CORRECTIONS (The "Safety Net") ---
             
             # A. LOW ENERGY OVERRIDE (Behavioral Superpower)
             # If energy is 0, brain-heavy tasks (Cognitive) are often too much.
@@ -83,10 +83,10 @@ def route(state, user_input, model=None):
             return ACTION_MAP.get(action_id, emotional_agent)(state, user_input)
 
         except Exception as e:
-            print(f"⚠️ PPO Routing Error: {e}")
+            print(f". PPO Routing Error: {e}")
 
     # ==========================================
-    # 3. 🛡️ RULE-BASED FALLBACK
+    # 3. . RULE-BASED FALLBACK
     # ==========================================
     if distortion >= 7:
         return cognitive_agent(state, user_input)

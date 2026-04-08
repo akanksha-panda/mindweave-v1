@@ -17,7 +17,7 @@ def load_data(filename):
         if os.path.exists(path):
             with open(path) as f:
                 return json.load(f)
-    raise FileNotFoundError(f"❌ Could not find {filename}")
+    raise FileNotFoundError(f". Could not find {filename}")
 
 try:
     # 2. LOAD SCORES
@@ -49,12 +49,12 @@ try:
     # 5. SAVE THE PLOT
     plot_path = os.path.join(RESULTS_DIR, "performance_chart.png")
     plt.savefig(plot_path)
-    print(f"✅ Chart saved to: {plot_path}")
+    print(f".Chart saved to: {plot_path}")
     
     plt.show()
 
     # SUMMARY
-    print("\n📊 FINAL PERFORMANCE SUMMARY:")
+    print("\n. FINAL PERFORMANCE SUMMARY:")
     print(f"Baseline Avg:  {np.mean(baseline):.3f}")
     print(f"MindWeave Avg: {np.mean(mindweave):.3f}")
     print(f"Improvement:   {((np.mean(mindweave) - np.mean(baseline)) / np.mean(baseline) * 100):.1f}%")

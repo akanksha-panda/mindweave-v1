@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from sentence_transformers import SentenceTransformer
-from mindweave_env.server.rl.state_encoder import encode_state  # 🔥 Import the actual encoder
+from mindweave_env.server.rl.state_encoder import encode_state  # . Import the actual encoder
 
 # --- PPO Policy Architecture (MATCHED TO TRAINER) ---
 class PPOPolicy(nn.Module):

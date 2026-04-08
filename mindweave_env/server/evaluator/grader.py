@@ -9,7 +9,7 @@ client = AsyncOpenAI(api_key=API_KEY) if API_KEY else None
 
 
 # =========================
-# 🔥 RULE-BASED GRADER
+# . RULE-BASED GRADER
 # =========================
 def grade_action(state, action):
     score = 0.5
@@ -30,7 +30,7 @@ def grade_action(state, action):
 
 
 # =========================
-# 🔥 SAFE PARSER
+# . SAFE PARSER
 # =========================
 def safe_parse_score(text):
     try:
@@ -40,11 +40,11 @@ def safe_parse_score(text):
 
 
 # =========================
-# 🔥 OPENAI GRADER
+# . OPENAI GRADER
 # =========================
 async def grade_with_llm(user_input, response):
     if client is None:
-        return 0.5  # 🔥 fallback (no crash)
+        return 0.5  # . fallback (no crash)
 
     prompt = f"""
 Evaluate this therapy response:
@@ -71,5 +71,5 @@ Return ONLY a number between 0 and 1.
         return float(text)
 
     except Exception as e:
-        print("⚠️ OpenAI grading failed:", e)
+        print(". OpenAI grading failed:", e)
         return 0.5

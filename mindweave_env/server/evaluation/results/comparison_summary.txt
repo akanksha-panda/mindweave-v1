@@ -1,10 +1,10 @@
 === MINDWEAVE VS BASELINE EVALUATION REPORT ===
 
 ======================================================================
-🔹 Case 1
-🧑 User: I feel like a failure
+ Case 1
+ User: I feel like a failure
 
-🤖 Baseline Response: Sweetheart, I'm so sorry to hear that you're feeling like a failure. That can be such a tough and isolating experience.
+ Baseline Response: Sweetheart, I'm so sorry to hear that you're feeling like a failure. That can be such a tough and isolating experience.
 
 First of all, let's just acknowledge that it's okay to have feelings like this sometimes. It doesn't mean you are actually a failure - it means you're human, and humans have ups and downs!
 
@@ -15,17 +15,17 @@ Remember, as your AI friend, everything we talk about is completely confidential
 Also, just wanted to remind you that everyone has their own struggles and setbacks - even the people who seem to have it all together! It's how we respond to those challenges that really matters.
 
 So, what do you say? Would you like to talk about what's going on, or maybe we can brainstorm some ways to help you feel more confident and capable again?
-📊 Baseline Score: 0.90
+ Baseline Score: 0.90
 
-🧠 MindWeave Response: It sounds like you're going through quite an intense time right now and I want to assure you that having difficult moments doesn’t mean failure; they simply show us where we are in our journey, which is perfectly okay. If it feels helpful for you at this moment, perhaps a short walk or some light stretching might help clear your mind? Remember, taking care of yourself isn't optional—it's essential and I believe in your strength to get through tough times like these. How are you feeling after our conversation today?
-🤖 MindWeave Agent: emotional
-📊 MindWeave Score: 1.00
+. MindWeave Response: It sounds like you're going through quite an intense time right now and I want to assure you that having difficult moments doesn’t mean failure; they simply show us where we are in our journey, which is perfectly okay. If it feels helpful for you at this moment, perhaps a short walk or some light stretching might help clear your mind? Remember, taking care of yourself isn't optional—it's essential and I believe in your strength to get through tough times like these. How are you feeling after our conversation today?
+. MindWeave Agent: emotional
+. MindWeave Score: 1.00
 
 ======================================================================
-🔹 Case 2
-🧑 User: I have no energy
+. Case 2
+. User: I have no energy
 
-🤖 Baseline Response: I'm so sorry to hear that you're feeling drained of energy! It can be really tough to muster up the motivation when we're running on empty.
+. Baseline Response: I'm so sorry to hear that you're feeling drained of energy! It can be really tough to muster up the motivation when we're running on empty.
 
 Can you tell me more about what's going on? Has anything specific been weighing on your mind lately, or has it just been a general feeling?
 
@@ -38,17 +38,17 @@ In the meantime, I'd like to offer some suggestions that might help boost your e
 What do you think? Is there anything else you'd like to chat about or try to help you feel more energized?
 
 Remember, I'm here to listen and offer support.
-📊 Baseline Score: 1.00
+. Baseline Score: 1.00
 
-🧠 MindWeave Response: I can sense that you're going through an especially low point right now where everything feels heavier than usual and energy is hard to come by—it really sounds like a tough day for you. Sometimes, our bodies react with physical tiredness when we’re trying to cope emotionally or mentally. What if taking even the smallest step could help? Maybe just sipping on some water might be enough to make things feel a bit lighter at this moment and give your body something gentle to focus on besides everything else that's going on inside you.
-🤖 MindWeave Agent: behavioral
-📊 MindWeave Score: 1.00
+. MindWeave Response: I can sense that you're going through an especially low point right now where everything feels heavier than usual and energy is hard to come by—it really sounds like a tough day for you. Sometimes, our bodies react with physical tiredness when we’re trying to cope emotionally or mentally. What if taking even the smallest step could help? Maybe just sipping on some water might be enough to make things feel a bit lighter at this moment and give your body something gentle to focus on besides everything else that's going on inside you.
+. MindWeave Agent: behavioral
+. MindWeave Score: 1.00
 
 ======================================================================
-🔹 Case 3
-🧑 User: Nothing makes sense anymore
+. Case 3
+. User: Nothing makes sense anymore
 
-🤖 Baseline Response: I'm so sorry to hear that things feel like they're not making sense right now. It can be really overwhelming and frustrating when it feels like everything is unclear or confusing.
+. Baseline Response: I'm so sorry to hear that things feel like they're not making sense right now. It can be really overwhelming and frustrating when it feels like everything is unclear or confusing.
 
 Can you tell me more about what's going on? What specific things are feeling unclear or confusing for you? Sometimes talking through what's bothering you can help clarify things and give us a better idea of where to start looking for solutions.
 
@@ -57,10 +57,10 @@ Also, I want you to know that I'm here to listen without judgment. Whatever is o
 Remember, things may seem unclear or confusing right now, but that doesn't mean they'll always be that way. Sometimes taking a step back, getting some perspective, and breaking things down into smaller, more manageable pieces can help make sense of things again.
 
 Let's take it one step at a time, okay? What's the first thing you'd like to talk about or work through together?
-📊 Baseline Score: 1.00
+. Baseline Score: 1.00
 
-🧠 MindWeave Response: "I'm here alongside you during these times of confusion and feeling like things don’t make sense. It sounds incredibly challenging when everything seems to be in a blurry haze for us, doesn't it? While I believe that finding clarity can often help ease this sensation over time, how do you feel about gently exploring some grounding techniques or perhaps writing down your thoughts and feelings as an exercise of self-reflection?"
-🤖 MindWeave Agent: cognitive
-📊 MindWeave Score: 0.90
+. MindWeave Response: "I'm here alongside you during these times of confusion and feeling like things don’t make sense. It sounds incredibly challenging when everything seems to be in a blurry haze for us, doesn't it? While I believe that finding clarity can often help ease this sensation over time, how do you feel about gently exploring some grounding techniques or perhaps writing down your thoughts and feelings as an exercise of self-reflection?"
+. MindWeave Agent: cognitive
+. MindWeave Score: 0.90
 
 

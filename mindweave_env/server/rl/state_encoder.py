@@ -1,13 +1,13 @@
 import numpy as np
 import torch
 from mindweave_env.server.core.model_store import get_embedding_model
-print("🔥 STATE ENCODER IMPORTED")
+print(". STATE ENCODER IMPORTED")
 model = None
 
 def encode_state(state):
     global model
 
-    # 🔥 Lazy load (only first time)
+    # . Lazy load (only first time)
     if model is None:
         model = get_embedding_model()
 

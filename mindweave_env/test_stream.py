@@ -10,7 +10,7 @@ URL = "http://127.0.0.1:8000/chat_stream"
 
 
 def chat():
-    print("🚀 HTTP Streaming Client Started")
+    print(". HTTP Streaming Client Started")
 
     while True:
         user_input = input("\nYou: ")
@@ -31,7 +31,7 @@ def chat():
 
             print("Bot: ", end="", flush=True)
 
-            buffer = ""  # 🔥 word buffer
+            buffer = ""  # . word buffer
 
             for line in response.iter_lines():
                 if not line:
@@ -42,27 +42,27 @@ def chat():
                 if decoded.startswith("data: "):
                     content = decoded.replace("data: ", "")
 
-                    # 🔥 END STREAM
+                    # . END STREAM
                     if content == "[DONE]":
                         if buffer:
                             print(buffer, end="", flush=True)
                         print("\n")
                         break
 
-                    # 🔥 FINAL METADATA
+                    # . FINAL METADATA
                     if content.startswith('{"type": "final"'):
                         data = json.loads(content)
 
-                        print("\n📊 State:", data["state"])
+                        print("\n. State:", data["state"])
                         print("🎯 Reward:", data["reward"])
-                        print("🧠 Agent:", data["agent"])
+                        print(". Agent:", data["agent"])
                         continue
 
-                    # 🔥 CLEAN EMPTY TOKENS
+                    # . CLEAN EMPTY TOKENS
                     if not content.strip():
                         continue
 
-                    # 🔥 BUFFER LOGIC (fix broken words)
+                    # . BUFFER LOGIC (fix broken words)
                     buffer += content
 
                     # print only on word boundary
@@ -70,11 +70,11 @@ def chat():
                         print(buffer, end="", flush=True)
                         buffer = ""
 
-                    # 🔥 small delay → smooth typing feel
+                    # . small delay → smooth typing feel
                     time.sleep(0.01)
 
         except Exception as e:
-            print("❌ Error:", e)
+            print(". Error:", e)
 
 
 if __name__ == "__main__":

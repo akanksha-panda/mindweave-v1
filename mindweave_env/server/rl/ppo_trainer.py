@@ -16,7 +16,7 @@ class PPOTrainer:
         self.value_coef = 0.5
 
     # =========================
-    # 🔥 GAE ADVANTAGE
+    # . GAE ADVANTAGE
     # =========================
     def compute_gae(self, rewards, values, dones):
         advantages = []
@@ -32,7 +32,7 @@ class PPOTrainer:
         return advantages, returns
 
     # =========================
-    # 🔥 PPO UPDATE
+    # . PPO UPDATE
     # =========================
     def update(self, states, actions, old_log_probs, returns, advantages):
 
@@ -44,7 +44,7 @@ class PPOTrainer:
 
         advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
 
-        for _ in range(4):  # 🔥 multiple epochs
+        for _ in range(4):  # . multiple epochs
             self.optimizer.zero_grad(set_to_none=True)
             logits, values = self.model(states)
             probs = torch.softmax(logits, dim=-1)

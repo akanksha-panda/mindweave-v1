@@ -2,13 +2,13 @@
 
 from openenv.core.env_server.http_server import create_app
 
-# ✅ clean absolute imports
+# .clean absolute imports
 from mindweave_env.models import MindweaveAction, MindweaveObservation
 from mindweave_env.server.environment2 import MindweaveEnvironment
 
 
 # =========================
-# 🔥 CREATE APP
+# . CREATE APP
 # =========================
 app = create_app(
     MindweaveEnvironment,
@@ -20,7 +20,7 @@ app = create_app(
 
 
 # =========================
-# 🔥 OPTIONAL LOCAL RUN
+# . OPTIONAL LOCAL RUN
 # =========================
 # inside mindweave_env/server/app.py
 import uvicorn

@@ -3,7 +3,7 @@
 def emotional_agent(state, user_input):
     emotion = state.get("emotion_category", "neutral")
 
-    # 🔥 intensity levels
+    # . intensity levels
     strong = ["sadness", "pain", "vulnerable", "fear"]
     medium = ["confusion", "yearning", "fatigue"]
     positive = ["joy", "love", "gratitude", "calm"]

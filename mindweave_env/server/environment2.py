@@ -1,4 +1,4 @@
-print("🔥🔥🔥 ENVIRONMENT2 FILE LOADED 🔥🔥🔥")
+print("... ENVIRONMENT2 FILE LOADED ...")
 
 import torch
 import os
@@ -10,18 +10,18 @@ from openenv.core.env_server.types import State
 
 ACTION_MAP = {0: "behavioral", 1: "cognitive", 2: "emotional"}
 
-print("🔥 FILE IMPORT STARTED")
+print(". FILE IMPORT STARTED")
 
 
 class MindweaveEnvironment(Environment):
     def __init__(self, config=None, episode_id=None, **kwargs):
-        print("🔥 INIT STARTED")
+        print(". INIT STARTED")
 
         try:
             from mindweave_env.server.environment import MentalHealthEnv
 
             # =========================
-            # 🔥 BASE ENV
+            # . BASE ENV
             # =========================
             self.env = MentalHealthEnv()
 
@@ -31,11 +31,11 @@ class MindweaveEnvironment(Environment):
                 "I am feeling pretty excited today!",
             ]
 
-            # ⚠️ keep this (needed for state structure)
+            # . keep this (needed for state structure)
             self.env.reset(self.test_inputs[0])
 
             # =========================
-            # 🔥 TASK STATE
+            # . TASK STATE
             # =========================
             self.input_index = 0
             self.current_task_index = 0
@@ -48,7 +48,7 @@ class MindweaveEnvironment(Environment):
             ]
             self.last_agent = None
             # =========================
-            # 🔥 LAZY MODEL
+            # . LAZY MODEL
             # =========================
             self.rl_model = None
             self.state_dim = None
@@ -59,15 +59,15 @@ class MindweaveEnvironment(Environment):
                 os.path.join(current_dir, "..", "..", "models", "ppo_mental_health_final.pt")
             )
 
-            print("✅ Environment Ready (Light Init).")
+            print(".Environment Ready (Light Init).")
 
         except Exception as e:
-            print("🔥 CRITICAL INIT ERROR:")
+            print(". CRITICAL INIT ERROR:")
             traceback.print_exc()
             raise e
 
     # =========================
-    # 🔥 REQUIRED BY OPENENV
+    # . REQUIRED BY OPENENV
     # =========================
     @property
     def state(self) -> State:
@@ -77,13 +77,13 @@ class MindweaveEnvironment(Environment):
         )
 
     # =========================
-    # 🔥 LAZY MODEL LOADER
+    # . LAZY MODEL LOADER
     # =========================
     def _ensure_model_loaded(self):
         if self.rl_model is not None:
             return
 
-        print("🚀 Lazy loading PPO...")
+        print(". Lazy loading PPO...")
 
         from mindweave_env.server.rl.state_encoder import encode_state
         from mindweave_env.server.rl.ppo_model import PPOPolicy
@@ -92,7 +92,7 @@ class MindweaveEnvironment(Environment):
         encoded = encode_state(dummy_state)
         self.state_dim = len(encoded)
 
-        print(f"🔥 STATE DIM = {self.state_dim}")
+        print(f". STATE DIM = {self.state_dim}")
 
         self.rl_model = PPOPolicy(self.state_dim)
 
@@ -102,15 +102,15 @@ class MindweaveEnvironment(Environment):
                     torch.load(self.model_path, map_location="cpu")
                 )
                 self.rl_model.eval()
-                print("✅ PPO model loaded")
+                print(".PPO model loaded")
             except Exception as e:
-                print("⚠️ PPO load failed (continuing without weights)")
+                print(". PPO load failed (continuing without weights)")
                 print(e)
         else:
-            print("⚠️ Model file not found")
+            print(". Model file not found")
 
     # =========================
-    # 🔥 NORMALIZE REWARD
+    # . NORMALIZE REWARD
     # =========================
     def normalize_reward(self, r, task):
         if task in ["emotion_classification", "intent_detection"]:
@@ -119,7 +119,7 @@ class MindweaveEnvironment(Environment):
             return float(max(0.0, min(1.0, (r + 5.0) / 20.0)))
 
     # =========================
-    # 🔥 STEP ASYNC
+    # . STEP ASYNC
     # =========================
     async def step_async(self, action):
         from mindweave_env.server.rl.state_encoder import encode_state
@@ -127,7 +127,7 @@ class MindweaveEnvironment(Environment):
 
         self.step_count += 1
 
-        # 🔥 ensure PPO ready
+        # . ensure PPO ready
         self._ensure_model_loaded()
 
         current_task = self.tasks[self.current_task_index]
@@ -138,7 +138,7 @@ class MindweaveEnvironment(Environment):
         reward = 0.0
 
         # =========================
-        # 🔥 PPO INFERENCE
+        # . PPO INFERENCE
         # =========================
         s_vec = torch.tensor(
             encode_state(current_state), dtype=torch.float32
@@ -150,7 +150,7 @@ class MindweaveEnvironment(Environment):
 
         
         # =========================
-        # 🔥 TASK LOGIC
+        # . TASK LOGIC
         # =========================
         if current_task == "emotion_classification":
             gt = gt_state.get("emotion", "neutral")
@@ -163,19 +163,19 @@ class MindweaveEnvironment(Environment):
         elif current_task == "agent_selection":
             agent = ACTION_MAP[action_idx]
 
-            # 🔥 STORE PRE-STATE (for reward explanation)
+            # . STORE PRE-STATE (for reward explanation)
             prev_state = copy.deepcopy(self.env.state)
 
-            # 🔥 RUN ENV STEP
+            # . RUN ENV STEP
             next_state, raw_reward, _ = self.env.step({
                 "type": agent,
                 "task": "agent_selection"
             })
 
-            # 🔥 STORE PPO AGENT (SAFE — AFTER STEP)
+            # . STORE PPO AGENT (SAFE — AFTER STEP)
             self.last_agent = agent
 
-            # 🔥 COMPUTE DELTAS (for logging/debugging)
+            # . COMPUTE DELTAS (for logging/debugging)
             mood_before = prev_state.get("mood", 0)
             mood_after = next_state.get("mood", 0)
 
@@ -185,7 +185,7 @@ class MindweaveEnvironment(Environment):
             mood_delta = mood_after - mood_before
             dist_delta = dist_before - dist_after
 
-            # 🔥 OPTIONAL: store in state for frontend / logs
+            # . OPTIONAL: store in state for frontend / logs
             next_state["mood_delta"] = mood_delta
             next_state["distortion_delta"] = dist_delta
             next_state["agent"] = agent  # ensure persistence
@@ -195,7 +195,7 @@ class MindweaveEnvironment(Environment):
         norm_reward = self.normalize_reward(reward, current_task)
 
         # =========================
-        # 🔥 PROGRESSION
+        # . PROGRESSION
         # =========================
         self.current_task_index += 1
 
@@ -206,10 +206,10 @@ class MindweaveEnvironment(Environment):
             if self.input_index < len(self.test_inputs):
                 new_state = self.env.reset(self.test_inputs[self.input_index])
 
-                # 🔥 UPDATE GT STATE FOR NEW INPUT
+                # . UPDATE GT STATE FOR NEW INPUT
                 self.initial_state = copy.deepcopy(new_state)
 
-                # 🔥 reset agent
+                # . reset agent
                 self.env.state["agent"] = None
 
         done = self.input_index >= len(self.test_inputs)
@@ -225,28 +225,28 @@ class MindweaveEnvironment(Environment):
             done=done,
         )
     # =========================
-    # 🔥 STEP WRAPPER
+    # . STEP WRAPPER
     # =========================
     def step(self, action):
         import asyncio
         return asyncio.run(self.step_async(action))
 
     # =========================
-    # 🔥 RESET
+    # . RESET
     # =========================
     def reset(self):
         from mindweave_env.models import MindweaveObservation
         import copy
 
         # =========================
-        # 🔥 RESET INDICES
+        # . RESET INDICES
         # =========================
         self.input_index = 0
         self.current_task_index = 0
         self.step_count = 0
 
         # =========================
-        # 🔥 LOAD FIRST INPUT
+        # . LOAD FIRST INPUT
         # =========================
         user_input = self.test_inputs[self.input_index]
 
@@ -254,17 +254,17 @@ class MindweaveEnvironment(Environment):
         state = self.env.reset(user_input)
 
         # =========================
-        # 🔥 CACHE INITIAL STATE (CRITICAL FIX)
+        # . CACHE INITIAL STATE (CRITICAL FIX)
         # =========================
         self.initial_state = copy.deepcopy(state)
 
         # =========================
-        # 🔥 CLEAR RL OUTPUT
+        # . CLEAR RL OUTPUT
         # =========================
         self.env.state["agent"] = None
 
         # =========================
-        # 🔥 RETURN OBSERVATION
+        # . RETURN OBSERVATION
         # =========================
         return MindweaveObservation(
             input=user_input,

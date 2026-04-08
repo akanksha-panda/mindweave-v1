@@ -13,7 +13,7 @@ def preload_embeddings():
     if _embeddings is not None:
         return
 
-    #print("🚀 Preloading emotion embeddings...")
+    #print(". Preloading emotion embeddings...")
 
     model = get_embedding_model()
 
@@ -24,7 +24,7 @@ def preload_embeddings():
         normalize_embeddings=True
     )
 
-    #print("✅ Emotion embeddings ready")
+    #print(".Emotion embeddings ready")
 
 
 def get_embeddings():
@@ -36,7 +36,7 @@ def get_embeddings():
     return _words, _embeddings
 
 
-# 🔥 FIXED DETECTOR
+# . FIXED DETECTOR
 def detect_emotions(user_input, threshold=0.7):
     try:
         model = get_embedding_model()
@@ -57,12 +57,12 @@ def detect_emotions(user_input, threshold=0.7):
         best_score = scores[best_idx].item()
         best_word = words[best_idx]
 
-        # ❌ DO NOT return "neutral"
+        # . DO NOT return "neutral"
         if best_score < threshold:
             return None
 
         return best_word
 
     except Exception as e:
-        print("❌ Emotion detection error:", e)
+        print(". Emotion detection error:", e)
         return None

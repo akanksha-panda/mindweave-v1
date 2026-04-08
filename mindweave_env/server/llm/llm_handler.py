@@ -13,7 +13,7 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 
 
 # =========================
-# 🔹 BASIC CALL
+# . BASIC CALL
 # =========================
 async def call_llm(prompt):
     async with httpx.AsyncClient(timeout=None) as client:
@@ -33,7 +33,7 @@ async def call_llm(prompt):
 
 
 # =========================
-# 🔹 STREAMING
+# . STREAMING
 # =========================
 
 
@@ -57,7 +57,7 @@ async def stream_llm(prompt):
 
                 async for line in response.aiter_lines():
 
-                    # 🔥 SAFETY: if no response for too long
+                    # . SAFETY: if no response for too long
                     if asyncio.get_event_loop().time() - start_time > 15 and not first_token_sent:
                         yield "..."
                         first_token_sent = True
@@ -73,7 +73,7 @@ async def stream_llm(prompt):
 
                         token = data.get("response", "")
 
-                        # ✅ FIRST TOKEN FIX
+                        # .FIRST TOKEN FIX
                         if not first_token_sent:
                             yield ""   # cleaner than " "
                             first_token_sent = True
@@ -85,11 +85,11 @@ async def stream_llm(prompt):
                         continue
 
     except Exception as e:
-        print("🔥 LLM STREAM FAILURE:", e)
+        print(". LLM STREAM FAILURE:", e)
         yield "Something went wrong. Try again."
 
 # =========================
-# 🔥 RENDER RESPONSE (CLEAN)
+# . RENDER RESPONSE (CLEAN)
 # =========================
 async def generate_response_stream(action, user_input, state, context=""):
     strategy = action.get("type")
@@ -113,7 +113,7 @@ async def generate_response_stream(action, user_input, state, context=""):
         context += "\nRelevant past:\n" + "\n".join(memories)
 
     # =========================
-    # 🔥 LIGHT STRATEGY GUIDANCE
+    # . LIGHT STRATEGY GUIDANCE
     # =========================
     if strategy == "behavioral":
         instruction = "Suggest simple, low-effort appropriate actions."
@@ -173,7 +173,7 @@ async def generate_response_stream(action, user_input, state, context=""):
         instruction = "stay context aware and respond appropriately."
 
     # =========================
-    # 🔥 ENERGY CONTROL
+    # . ENERGY CONTROL
     # =========================
     brevity = ""
     if energy <= 1:
@@ -187,7 +187,7 @@ async def generate_response_stream(action, user_input, state, context=""):
         """
 
     # =========================
-    # 🔥 FINAL PROMPT (CLEAN)
+    # . FINAL PROMPT (CLEAN)
     # =========================
     prompt = f"""
 You are a supportive AI assistant.
@@ -228,7 +228,7 @@ Write the final response.
 """
 
     # =========================
-    # 🔥 STREAM OUTPUT
+    # . STREAM OUTPUT
     # =========================
     full_response = ""
 
@@ -237,7 +237,7 @@ Write the final response.
         yield token
 
 
-    # 🔥 ensure something is returned
+    # . ensure something is returned
     if not full_response.strip():
         yield "Tell me a bit more about what’s on your mind."
 

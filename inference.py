@@ -5,14 +5,14 @@ from openai import OpenAI
 
 from mindweave_env.client import MindweaveEnv, MindweaveAction
 
-# 🔥 SUPPRESS LOGS
+# . SUPPRESS LOGS
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
 
 load_dotenv()
 
 # =========================
-# 🔥 CONFIG
+# . CONFIG
 # =========================
 API_KEY = os.getenv("OPENAI_API_KEY")
 MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4o-mini")
@@ -28,7 +28,7 @@ ACTION_MAP = {
 INTENT_MAP = ["statement", "question", "emotional"]
 
 # =========================
-# 🔥 LLM ECHO
+# . LLM ECHO
 # =========================
 def llm_echo(answer: str) -> str:
     try:
@@ -44,7 +44,7 @@ def llm_echo(answer: str) -> str:
 
 
 # =========================
-# 🔥 SIMPLE POLICY (ENV-BASED)
+# . SIMPLE POLICY (ENV-BASED)
 # =========================
 def simple_policy(state, task):
     emotion = state.get("emotion")
@@ -72,7 +72,7 @@ def simple_policy(state, task):
 
 
 # =========================
-# 🔥 MAIN
+# . MAIN
 # =========================
 async def main():
     env = MindweaveEnv(base_url="http://localhost:8000")
@@ -91,10 +91,10 @@ async def main():
             state = obs.state or {}
             task = obs.task
 
-            # 🔥 USE ENV STATE (NO EMBEDDINGS)
+            # . USE ENV STATE (NO EMBEDDINGS)
             ppo_output = simple_policy(state, task)
 
-            # 🔥 LLM ECHO
+            # . LLM ECHO
             action_text = llm_echo(ppo_output)
 
             if not action_text:

@@ -10,7 +10,7 @@ from pydantic import BaseModel
 from mindweave_env.server.models_ui import PPOPolicy, MemoryManager
 from mindweave_env.server.llm.llm_handler import generate_response_stream
 from mindweave_env.server.router import route 
-from mindweave_env.server.environment import MentalHealthEnv # 🔥 Bridge to Env Logic
+from mindweave_env.server.environment import MentalHealthEnv # . Bridge to Env Logic
 
 app = FastAPI()
 
@@ -25,7 +25,7 @@ app.add_middleware(
 
 # Initialize global managers and environment
 memory = MemoryManager()
-env = MentalHealthEnv() # 🔥 Manages mood/distortion/energy state transitions
+env = MentalHealthEnv() # . Manages mood/distortion/energy state transitions
 
 # --- 🛠️ PATH HANDLING ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
@@ -45,7 +45,7 @@ for path in possible_paths:
         MODEL_PATH = path
         break
 
-# --- 🧠 MODEL LOADING ---
+# --- . MODEL LOADING ---
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # state_dim 388 = 4 basic stats + 384 embedding dimensions
 model = PPOPolicy(state_dim=388, action_dim=3)
@@ -54,23 +54,23 @@ if MODEL_PATH:
     try:
         model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
         model.eval()
-        print(f"✅ MindWeave RL Weights Loaded: {MODEL_PATH}")
+        print(f".MindWeave RL Weights Loaded: {MODEL_PATH}")
     except Exception as e:
-        print(f"⚠️ Weights Load Error: {e}")
+        print(f". Weights Load Error: {e}")
 else:
-    print(f"❌ CRITICAL: ppo_mental_health_final.pt NOT FOUND.")
+    print(f". CRITICAL: ppo_mental_health_final.pt NOT FOUND.")
 
-# --- 📝 SCHEMAS ---
+# --- . SCHEMAS ---
 class ChatRequest(BaseModel):
     user_input: str
 
-# --- 🚀 ENDPOINTS ---
+# --- . ENDPOINTS ---
 
 @app.post("/chat_stream")
 async def chat_endpoint(payload: ChatRequest):
     user_input = payload.user_input or "Hello"
 
-    # 1. 🔥 TRIGGER ENVIRONMENT STATE
+    # 1. . TRIGGER ENVIRONMENT STATE
     # This replaces the manual dict. env.reset() uses environment.py logic
     # to detect emotions, adjust mood, and set distortion.
     current_state = env.reset(user_input)
@@ -80,13 +80,13 @@ async def chat_endpoint(payload: ChatRequest):
     try:
         action = route(current_state, user_input, model=model)
         
-        # 🔥 STEP THE ENVIRONMENT
+        # . STEP THE ENVIRONMENT
         # This records the action taken and calculates the reward/next_state
         # effectively "closing the loop" on the RL trajectory.
         next_state, reward, _ = env.step(action)
         
     except Exception as e:
-        print(f"⚠️ Routing/Env Error: {e}")
+        print(f". Routing/Env Error: {e}")
         action = {"type": "adaptive", "text": "I'm listening. Tell me more."}
         reward = 0.0
 
@@ -107,7 +107,7 @@ async def chat_endpoint(payload: ChatRequest):
             yield "data: [DONE]\n\n"
             
         except Exception as e:
-            print(f"⚠️ Stream Error: {e}")
+            print(f". Stream Error: {e}")
             yield f"data: Error: {str(e)}\n\n"
             yield "data: [DONE]\n\n"
 

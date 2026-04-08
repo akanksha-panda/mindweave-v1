@@ -6,7 +6,7 @@ NEGATIONS = ["not", "no", "never", "dont", "don't", "doesnt", "doesn't"]
 ABSOLUTES = ["never", "always", "nothing", "everything"]
 
 # =========================
-# 🔹 MAP TO CATEGORY (DYNAMIC)
+# . MAP TO CATEGORY (DYNAMIC)
 # =========================
 def map_to_category(emotions):
     if not emotions:
@@ -28,7 +28,7 @@ def map_to_category(emotions):
             if cat == "sad":
                 cat = "sadness"
 
-            # 🔥 score = length of word (proxy for specificity)
+            # . score = length of word (proxy for specificity)
             score = len(e)
 
             if score > best_score:
@@ -40,13 +40,13 @@ def map_to_category(emotions):
 
 
 # =========================
-# 🔥 APPLY STATE DELTA
+# . APPLY STATE DELTA
 # =========================
 def apply_emotion_to_state(state, category):
     
     from mindweave_env.server.emotions.emotion_data import CATEGORY_STATE_HINTS
 
-    # 🔥 HARD SAFETY
+    # . HARD SAFETY
     if not category or category not in CATEGORY_STATE_HINTS:
         category = "neutral"
 
@@ -62,13 +62,13 @@ def apply_emotion_to_state(state, category):
 
 
 # =========================
-# 🔹 RESPONSE STYLE (FULLY EXPANDED)
+# . RESPONSE STYLE (FULLY EXPANDED)
 # =========================
 def get_response_style(category):
 
     styles = {
 
-        # 🔴 NEGATIVE
+        # . NEGATIVE
         "afraid": {
             "tone": "reassuring, grounding",
             "rules": ["reduce fear", "create safety"]
@@ -139,7 +139,7 @@ def get_response_style(category):
             "rules": ["acknowledge longing"]
         },
 
-        # 🟢 POSITIVE
+        # . POSITIVE
         "love": {
             "tone": "warm",
             "rules": ["reinforce connection"]
@@ -205,7 +205,7 @@ def get_response_style(category):
             "rules": ["support gently"]
         },
 
-        # 🔵 PHRASES
+        # . PHRASES
         "sadness": {
             "tone": "deep empathy",
             "rules": ["emotional validation"]

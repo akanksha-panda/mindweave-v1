@@ -2,7 +2,7 @@
 
 
 # =========================
-# 🟢 POSITIVE EMOTIONS (FULL FLAT LIST)
+# . POSITIVE EMOTIONS (FULL FLAT LIST)
 # =========================
 
 
@@ -10,7 +10,7 @@
 POSITIVE = {
 
     # =========================
-    # ❤️ LOVE / CONNECTION
+    #  LOVE / CONNECTION
     # =========================
     "love": [
         "affectionate","admiring","compassionate","caring","devoted",
@@ -19,7 +19,7 @@ POSITIVE = {
     ],
 
     # =========================
-    # 💪 CONFIDENCE / POWER
+    #  CONFIDENCE / POWER
     # =========================
     "confidence": [
         "adequate","assured","authentic","bold","brave","capable",
@@ -28,7 +28,7 @@ POSITIVE = {
     ],
 
     # =========================
-    # 🎯 FOCUS / PRODUCTIVITY
+    #  FOCUS / PRODUCTIVITY
     # =========================
     "focus": [
         "clear","focused","productive","responsible","efficient",
@@ -36,7 +36,7 @@ POSITIVE = {
     ],
 
     # =========================
-    # 🌱 GROWTH / MOTIVATION
+    #  GROWTH / MOTIVATION
     # =========================
     "growth": [
         "hopeful","optimistic","passionate","perseverant",
@@ -44,7 +44,7 @@ POSITIVE = {
     ],
 
     # =========================
-    # 🧠 ENGAGEMENT / CURIOSITY
+    # . ENGAGEMENT / CURIOSITY
     # =========================
     "engagement": [
         "absorbed","alert","approachable","communicative",
@@ -54,7 +54,7 @@ POSITIVE = {
     ],
 
     # =========================
-    # ⚡ ENERGY / VITALITY
+    #  ENERGY / VITALITY
     # =========================
     "energy": [
         "energetic","glowing","invigorated","lively","vibrant",
@@ -63,7 +63,7 @@ POSITIVE = {
     ],
 
     # =========================
-    # 😄 JOY / HAPPINESS
+    #  JOY / HAPPINESS
     # =========================
     "joy": [
         "amazed","animated","aroused","dazzled","ecstatic",
@@ -74,7 +74,7 @@ POSITIVE = {
     ],
 
     # =========================
-    # 🌈 PEACE / CALM
+    #  PEACE / CALM
     # =========================
     "calm": [
         "at ease","calm","carefree","clearheaded","comfortable", "sorted"
@@ -85,7 +85,7 @@ POSITIVE = {
     ],
 
     # =========================
-    # 🙏 GRATITUDE
+    #  GRATITUDE
     # =========================
     "gratitude": [
         "appreciative","blessed","giving","grateful",
@@ -93,14 +93,14 @@ POSITIVE = {
     ],
 
     # =========================
-    # 🎨 CREATIVITY / REFLECTION
+    #  CREATIVITY / REFLECTION
     # =========================
     "creativity": [
         "awed","blissful","creative","reflective"
     ],
 
     # =========================
-    # 🤝 SOCIAL / KINDNESS
+    #  SOCIAL / KINDNESS
     # =========================
     "kindness": [
         "considerate","cooperative","gentle","helpful",
@@ -109,14 +109,14 @@ POSITIVE = {
     ],
 
     # =========================
-    # ⚖️ STABILITY / BALANCE
+    #  STABILITY / BALANCE
     # =========================
     "stability": [
         "stable","steady","grounded","harmonious"
     ],
 
     # =========================
-    # 🧩 UNIQUE / EDGE CASES
+    #  UNIQUE / EDGE CASES
     # =========================
     "misc_positive": [
         "excellent","genuine","glorious","keen","open",
@@ -126,7 +126,7 @@ POSITIVE = {
 
 
 # =========================
-# 🔴 NEGATIVE EMOTIONS (FULL IMAGE INCLUDED)
+# . NEGATIVE EMOTIONS (FULL IMAGE INCLUDED)
 # =========================
 
 # server/emotions/negative_emotions.py
@@ -463,7 +463,7 @@ EMOTION_PHRASES = {
 
 
 # =========================
-# 💖 ROMANTIC PHRASES DATASET
+# . ROMANTIC PHRASES DATASET
 # =========================
 
 ROMANTIC_PHRASES = [
@@ -595,7 +595,7 @@ ROMANTIC_WORDS = [
 
 
 # =========================
-# 🔥 OPTIONAL 
+# . OPTIONAL 
 # =========================
 
 ROMANTIC_DATA = {
@@ -606,12 +606,12 @@ ROMANTIC_DATA = {
 
 
 # =========================
-# 🔥 FLATTENED CATEGORY MAP
+# . FLATTENED CATEGORY MAP
 # =========================
 
 FLAT_EMOTION_MAP = {}
 
-# 🔹 POSITIVE
+# . POSITIVE
 for category, words in POSITIVE.items():
     for word in words:
         FLAT_EMOTION_MAP[word] = {
@@ -619,7 +619,7 @@ for category, words in POSITIVE.items():
             "polarity": "positive"
         }
 
-# 🔹 NEGATIVE
+# . NEGATIVE
 for category, words in NEGATIVE.items():
     for word in words:
         FLAT_EMOTION_MAP[word] = {
@@ -627,7 +627,7 @@ for category, words in NEGATIVE.items():
             "polarity": "negative"
         }
 
-# 🔹 PHRASES
+# . PHRASES
 for category, phrases in EMOTION_PHRASES.items():
     for phrase in phrases:
         FLAT_EMOTION_MAP[phrase] = {
@@ -636,7 +636,7 @@ for category, phrases in EMOTION_PHRASES.items():
         }
 
 # =========================
-# 💖 ROMANTIC → LOVE MAPPING
+# . ROMANTIC → LOVE MAPPING
 # =========================
 
 LOVE_CONFIG = {
@@ -646,7 +646,7 @@ LOVE_CONFIG = {
     "sentiment": +0.8
 }
 
-# 🔹 romantic phrases
+# . romantic phrases
 for phrase in ROMANTIC_DATA["r_phrases"]:
     FLAT_EMOTION_MAP[phrase] = {
         "category": "love",
@@ -654,7 +654,7 @@ for phrase in ROMANTIC_DATA["r_phrases"]:
         **LOVE_CONFIG
     }
 
-# 🔹 romantic words
+# . romantic words
 for word in ROMANTIC_DATA["r_words"]:
     FLAT_EMOTION_MAP[word] = {
         "category": "love",
@@ -663,7 +663,7 @@ for word in ROMANTIC_DATA["r_words"]:
     }
 
 # =========================
-# 🔥 ALL EMOTIONS 
+# . ALL EMOTIONS 
 # =========================
 
 ALL_EMOTIONS = list(FLAT_EMOTION_MAP.keys())
@@ -673,13 +673,13 @@ ALL_EMOTIONS += ROMANTIC_DATA["r_words"]
 
 
 # =========================
-# 🔥 CATEGORY → FULL STATE (FINAL)
+# . CATEGORY → FULL STATE (FINAL)
 # =========================
 
 CATEGORY_STATE_HINTS = {
 
     # =========================
-    # 🔴 NEGATIVE
+    # . NEGATIVE
     # =========================
 
     "afraid":      {"mood": -2, "energy": -1, "distortion": +3, "sentiment": -0.7},
@@ -698,7 +698,7 @@ CATEGORY_STATE_HINTS = {
     "yearning":    {"mood": -1, "energy":  0, "distortion": +1, "sentiment": -0.3},
 
     # =========================
-    # 🟢 POSITIVE
+    # . POSITIVE
     # =========================
 
     "love":        {"mood": +2, "energy": +1, "distortion": -1, "sentiment": +0.8},
@@ -716,7 +716,7 @@ CATEGORY_STATE_HINTS = {
     "misc_positive":{"mood": +1, "energy": 0, "distortion":  0, "sentiment": +0.4},
 
     # =========================
-    # 🔵 PHRASES
+    # . PHRASES
     # =========================
 
     "sadness":     {"mood": -2, "energy": -1, "distortion": +1, "sentiment": -0.8},
